@@ -1,32 +1,32 @@
 import {
-  IsNotEmpty,
   IsString,
+  IsNotEmpty,
   IsObject,
-  IsNumber,
-  ValidateNested,
+  IsLatitude,
+  IsLongitude,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-class CoordinatesDto {
-  @IsNumber()
-  lat: number;
-
-  @IsNumber()
-  lng: number;
-}
-
-export class CreateRoutingDto {
+export class CalculateRouteDto {
   @IsString()
   @IsNotEmpty()
   deviceId: string;
 
   @IsObject()
-  @ValidateNested()
+  @IsNotEmpty()
   @Type(() => CoordinatesDto)
   origin: CoordinatesDto;
 
   @IsObject()
-  @ValidateNested()
+  @IsNotEmpty()
   @Type(() => CoordinatesDto)
   destination: CoordinatesDto;
+}
+
+export class CoordinatesDto {
+  @IsLatitude()
+  lat: number;
+
+  @IsLongitude()
+  lng: number;
 }
